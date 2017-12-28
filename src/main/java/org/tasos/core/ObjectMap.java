@@ -7,6 +7,14 @@ import java.util.*;
 public class ObjectMap implements GenMap
 {
 
+
+    @SuppressWarnings("unchecked")
+    public ObjectMap()
+    {
+        m_data.put( "$type", "ObjectMap" );
+        m_data.put( "$value", m_dataList );
+    }
+
     @Override
     public Object getGen(Object key)
     {
@@ -47,12 +55,8 @@ public class ObjectMap implements GenMap
 
     private Map             m_data = new LinkedHashMap();
 
-    @SuppressWarnings("unchecked")
-    public ObjectMap()
-    {
-        m_data.put( "$type", "ObjectMap" );
-        m_data.put( "$value", m_dataList );
-    }
+
+
 
 
     private Object  putObj( Object key, Object value )
