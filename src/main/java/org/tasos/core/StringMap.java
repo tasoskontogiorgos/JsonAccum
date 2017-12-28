@@ -3,25 +3,23 @@ package org.tasos.core;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.HashMap;
-import java.util.Map;
 
-public class StringMap
+public class StringMap extends HashMap< String, Object > implements GenMap
 {
-    private Map< String, Object >       m_data = new HashMap<>();
 
     public StringMap()
     {
 
     }
 
-    public Object  put( String key, Object value )
+    private Object  putStr( String key, Object value )
     {
-        return m_data.put( key, value );
+        return put( key, value );
     }
 
-    public Object  get( String key  )
+    private Object  getStr( String key  )
     {
-        return m_data.get( key );
+        return  get( key );
     }
 
     @Override
@@ -30,11 +28,22 @@ public class StringMap
         ObjectMapper om = new ObjectMapper();
         try
         {
-            return om.writerWithDefaultPrettyPrinter().writeValueAsString(m_data);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString( this );
         } catch( Exception x )
         {
             return "Error: " + x.toString();
         }
     }
 
+    @Override
+    public Object getGen(Object key)
+    {
+        return getStr( key.toString() );
+    }
+
+    @Override
+    public Object putGen(Object key, Object value)
+    {
+        return putStr( key.toString(), value );
+    }
 }
