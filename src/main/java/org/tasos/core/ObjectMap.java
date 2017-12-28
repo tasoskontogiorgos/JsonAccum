@@ -2,9 +2,7 @@ package org.tasos.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ObjectMap implements GenMap
 {
@@ -45,16 +43,21 @@ public class ObjectMap implements GenMap
         }
     }
 
-    private List< Pair > m_data = new ArrayList<>();
+    private List< Pair >    m_dataList = new ArrayList<>();
 
+    private Map             m_data = new LinkedHashMap();
+
+    @SuppressWarnings("unchecked")
     public ObjectMap()
     {
-
+        m_data.put( "$type", "ObjectMap" );
+        m_data.put( "$value", m_dataList );
     }
+
 
     private Object  putObj( Object key, Object value )
     {
-        for( Pair p : m_data )
+        for( Pair p : m_dataList)
         {
             if( key.equals( p.getKey()))
             {
@@ -62,13 +65,13 @@ public class ObjectMap implements GenMap
                 return value;
             }
         }
-        m_data.add( new Pair( key, value ));
+        m_dataList.add( new Pair( key, value ));
         return value;
     }
 
     private Object  getObj( Object key  )
     {
-        for( Pair p : m_data )
+        for( Pair p : m_dataList)
         {
             if( key.equals( p.getKey()))
             {
@@ -84,7 +87,7 @@ public class ObjectMap implements GenMap
         ObjectMapper om = new ObjectMapper();
         try
         {
-            return om.writerWithDefaultPrettyPrinter().writeValueAsString( m_data );
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString(m_data);
         } catch( Exception x )
         {
             return "Error: " + x.toString();
