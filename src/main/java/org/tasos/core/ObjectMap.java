@@ -27,7 +27,7 @@ public class ObjectMap implements GenMap
         return putObj( key, value );
     }
 
-    static private class Pair extends HashMap< Object, Object >
+    static private class Pair extends LinkedHashMap< Object, Object >
     {
 
         Pair( Object key, Object value )

@@ -2,14 +2,14 @@ package org.tasos.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public class StringMap extends HashMap< String, Object > implements GenMap
+public class StringMap extends LinkedHashMap< String, Object > implements GenMap
 {
 
     public StringMap()
     {
-
+        putStr( "$type", "StringMap" );
     }
 
     private Object  putStr( String key, Object value )
