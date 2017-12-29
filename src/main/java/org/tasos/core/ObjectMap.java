@@ -4,15 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
-public class ObjectMap implements GenMap
+public class ObjectMap extends LinkedHashMap implements GenMap
 {
 
 
     @SuppressWarnings("unchecked")
     public ObjectMap()
     {
-        m_data.put( "$type", "ObjectMap" );
-        m_data.put( "$value", m_dataList );
+        put( "$type", "ObjectMap" );
+        put( "$value", m_dataList );
     }
 
     @Override
@@ -53,7 +53,6 @@ public class ObjectMap implements GenMap
 
     private List< Pair >    m_dataList = new ArrayList<>();
 
-    private Map             m_data = new LinkedHashMap();
 
 
 
@@ -91,7 +90,7 @@ public class ObjectMap implements GenMap
         ObjectMapper om = new ObjectMapper();
         try
         {
-            return om.writerWithDefaultPrettyPrinter().writeValueAsString(m_data);
+            return om.writerWithDefaultPrettyPrinter().writeValueAsString( this );
         } catch( Exception x )
         {
             return "Error: " + x.toString();

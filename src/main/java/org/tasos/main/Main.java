@@ -28,11 +28,33 @@ public class Main
         for( int i = 0; i < sz; i++ )
         {
             Object key = StrMap();
-            Object value = StrMap();
+            Object value = Val();
             a.putGen( key, value );
         }
 
         return a;
+    }
+
+
+    static int s_depth = 0;
+    private static Object Val()
+    {
+        try {
+            s_depth++;
+            if (s_depth >= 3) {
+                return s_rand.nextDouble() * 100;
+            }
+            int k = s_rand.nextInt(2);
+            if (k == 0) {
+                return ObjMap();
+            } else
+            {
+                return StrMap();
+            }
+
+        } finally {
+            s_depth--;
+        }
     }
 
     private static GenMap StrMap()
@@ -44,8 +66,7 @@ public class Main
         {
             String k = s_names[ s_rand.nextInt( s_names.length)];
             String s = k + "_" +  s_rand.nextInt(10);
-            Double v = s_rand.nextDouble() * 1000;
-            a.putGen( s, v );
+            a.putGen( s, Val() );
         }
 
         return a;
