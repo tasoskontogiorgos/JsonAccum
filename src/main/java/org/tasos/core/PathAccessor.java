@@ -2,6 +2,7 @@ package org.tasos.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PathAccessor
 {
@@ -24,6 +25,14 @@ public class PathAccessor
         @Override
         public Object get(Object o)
         {
+            if( o instanceof Map )
+            {
+                Map m = ( Map ) o;
+                if( m.containsKey( m_key ))
+                {
+                    return m.get( m_key );
+                }
+            }
             return ((GenMap) o ).getGen( m_key );
         }
     }

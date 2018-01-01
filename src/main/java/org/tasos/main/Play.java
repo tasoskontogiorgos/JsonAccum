@@ -21,7 +21,7 @@ public class Play
         Map m = om.readValue( f, Map.class );
         GenMap gm = CNV.Convert( m );
        // System.out.println( gm );
-        PathAccessor pa = new PathAccessor( "$value", 1 );
+        PathAccessor pa = new PathAccessor( "$value", 0 );
         Object o = pa.get( gm );
         System.out.printf(Objects.toString( o ) );
     }
